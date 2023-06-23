@@ -1,4 +1,4 @@
-import AppNavbar from "../components/AppNavbar/AppNavbar";
+import AppNavbar from "../components/AppNavbar";
 
 const Login = () => {
     return (
