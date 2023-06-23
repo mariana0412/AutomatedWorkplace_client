@@ -24,9 +24,11 @@ const AppNavbar = () => {
                     </NavbarBrand>
 
                 </Nav>
+
+                {/*when auth is ready, toggle login and logout depends on token presence*/}
                 <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
                     <NavbarBrand tag={Link} to="/login">
-                        Логін
+                        Увійти
                     </NavbarBrand>
                 </Nav>
 
