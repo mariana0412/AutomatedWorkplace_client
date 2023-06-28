@@ -85,6 +85,7 @@ return (
                         type="textarea"
                         name="description"
                         id="description"
+                        required
                         value={good.description || ''}
                         onChange={handleChange}
                     />
