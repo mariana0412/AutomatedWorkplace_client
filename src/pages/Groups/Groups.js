@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AppNavbar from '../components/AppNavbar';
+import {useNavigate} from "react-router-dom";
+import AppNavbar from '../../components/AppNavbar';
 
 const Groups = () => {
     const [groups, setGroups] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchGroups();
@@ -13,11 +15,12 @@ const Groups = () => {
             const response = await fetch('/api/group', {
                 method: 'GET',
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3OTQ1MzU1fQ.MkHPEeJVzZ0AUbknYJ2ODHz0LRNNTJY4TEb_1wmJ3ZY'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
                 }
             });
             const data = await response.json();
             setGroups(data);
+            await fetchGroups();
         } catch (error) {
             console.error(error);
         }
@@ -29,7 +32,7 @@ const Groups = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3OTQ1MzU1fQ.MkHPEeJVzZ0AUbknYJ2ODHz0LRNNTJY4TEb_1wmJ3ZY'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
                 }
             });
 
@@ -49,7 +52,7 @@ const Groups = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3OTQ1MzU1fQ.MkHPEeJVzZ0AUbknYJ2ODHz0LRNNTJY4TEb_1wmJ3ZY'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
                 }
             });
 
@@ -64,8 +67,7 @@ const Groups = () => {
     };
 
     const handleAdd = () => {
-        // Handle add button click
-        console.log('Add group');
+        navigate('/groups/add'); // Перехід на сторінку додавання групи
     };
 
     return (
