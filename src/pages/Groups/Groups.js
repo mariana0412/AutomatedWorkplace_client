@@ -30,25 +30,8 @@ const Groups = () => {
     };
 
     const handleEdit = async (groupId) => {
-        try {
-            const response = await fetch(`/api/group/${groupId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
-                }
-            });
-
-            if (response.ok) {
-                console.log(`Edit group with ID ${groupId}`);
-            } else {
-                console.error('Error editing group');
-            }
-        } catch (error) {
-            console.error(error);
-        }
+        navigate(`/groups/add/${groupId}`); // Перехід на сторінку додавання/редагування групи з передачею ID
     };
-
 
     const handleAdd = () => {
         navigate('/groups/add'); // Перехід на сторінку додавання групи
