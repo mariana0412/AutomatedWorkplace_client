@@ -24,7 +24,7 @@ const AddGood = () => {
         if (id) {
             fetch(`/api/goods/${id}`, {
                 headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
                 .then(response => response.json())
@@ -53,7 +53,7 @@ const AddGood = () => {
         const response = await fetch(url, {
             method: good.id ? 'PUT' : 'POST',
             headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(good)
         });
@@ -64,10 +64,13 @@ const AddGood = () => {
                 alert("Товар з такою назвою вже існує!");
             else if(errorMessage === "Price can't be negative!")
                 alert("Ціна товару не може бути від'ємною!");
-            return;
         }
-        setGood(initialFormState);
-        navigate('/goods');
+        else if (response.status === 403)
+            localStorage.removeItem('token');
+        else {
+            setGood(initialFormState);
+            navigate('/goods');
+        }
     };
 
 return (

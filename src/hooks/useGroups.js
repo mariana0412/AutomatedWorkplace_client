@@ -13,12 +13,15 @@ export const useGroups = (order) => {
                 const response = await fetch(url, {
                     method: 'GET',
                     headers: {
-                        Authorization:
-                            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U',
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
                     },
                 });
-                const data = await response.json();
-                setGroups(data);
+                if (response.status === 403)
+                    localStorage.removeItem('token');
+                else {
+                    const data = await response.json();
+                    setGroups(data);
+                }
             } catch (error) {
                 console.error(error);
             }

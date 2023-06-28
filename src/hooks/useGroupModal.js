@@ -19,13 +19,16 @@ const useGroupModal = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             });
 
             if (response.ok) {
                 console.log(`Delete group with ID ${groupId}`);
-            } else {
+            }
+            else if (response.status === 403)
+                localStorage.removeItem('token');
+            else {
                 console.error('Error deleting group');
             }
         } catch (error) {

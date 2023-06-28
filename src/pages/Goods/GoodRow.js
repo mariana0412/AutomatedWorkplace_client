@@ -33,7 +33,7 @@ const GoodRow = ({ good, groups, handleDelete }) => {
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(good)
         });
@@ -43,6 +43,8 @@ const GoodRow = ({ good, groups, handleDelete }) => {
             setErrorMessage(`Кількість товару не може бути від'ємною!`);
             return;
         }
+        else if (response.status === 403)
+            localStorage.removeItem('token');
 
         closeModal();
     };
