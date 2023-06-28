@@ -1,0 +1,43 @@
+.row {
+    display: flex;
+}
+
+.filters {
+    flex: 15%;
+}
+
+.goods-table {
+    flex: 85%;
+}
+
+.goods-table tbody tr {
+    border-bottom: none;
+}
+
+/* Add vertical borders between table columns */
+.goods-table td, .goods-table th {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Add top and bottom border to the header row */
+.goods-table thead tr {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/* Custom colors for buttons */
+.edit-button {
+    background-color: #6b6bfa !important;
+}
+
+.delete-button {
+    background-color: #e86173 !important;
+}
+
+/* Add space between buttons */
+.buttonWithMargins {
+    margin: 10px;
+}
