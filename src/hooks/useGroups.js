@@ -24,7 +24,7 @@ export const useGroups = (order) => {
             }
         };
         fetchGroups();
-    }, [order]);
+    }, [order, groups]);
 
     return groups;
 };
