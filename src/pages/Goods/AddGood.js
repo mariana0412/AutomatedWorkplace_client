@@ -49,15 +49,23 @@ const AddGood = () => {
         event.preventDefault();
 
         const url = `/api/goods${good.id ? `/${good.id}` : ''}`;
-        console.log(url);
 
-        await fetch(url, {
+        const response = await fetch(url, {
             method: good.id ? 'PUT' : 'POST',
             headers: {
                 'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`
             },
             body: JSON.stringify(good)
         });
+
+        if (response.status === 409) {
+            const errorMessage = await response.text();
+            if(errorMessage === "Good with this name already exists!")
+                alert("Товар з такою назвою вже існує!");
+            else if(errorMessage === "Price can't be negative!")
+                alert("Ціна товару не може бути від'ємною!");
+            return;
+        }
         setGood(initialFormState);
         navigate('/goods');
     };
