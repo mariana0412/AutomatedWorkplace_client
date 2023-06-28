@@ -28,19 +28,6 @@
     border-bottom: 1px solid black;
 }
 
-.column-actions, .column-quantity, .column-price {
-    width: 10%;
-}
-
-.column-description {
-    width: 20%;
-}
-
-.column-producer, .column-name, .column-group {
-    width: 15%
-}
-
-
 /* Custom colors for buttons */
 .edit-button {
     background-color: violet !important;

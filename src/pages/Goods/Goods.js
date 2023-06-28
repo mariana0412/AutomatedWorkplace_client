@@ -4,6 +4,7 @@ import './Goods.css';
 import useGoods from "../../hooks/useGoods";
 import useDeleteConfirmation from "../../hooks/useDeleteConfirmation";
 import GoodRow from "./GoodRow";
+import {Link} from "react-router-dom";
 
 const Goods = () => {
 
@@ -23,7 +24,7 @@ const Goods = () => {
         <div>
             <AppNavbar/>
             <Container fluid>
-                <Button className="buttonWithMargins" color="success">
+                <Button className="buttonWithMargins" color="success" tag={Link} to="/goods/new">
                     Додати
                 </Button>
                 <div className="row">
@@ -34,13 +35,13 @@ const Goods = () => {
                         <Table className="mt-4">
                             <thead>
                             <tr>
-                                <th className="column-name">Назва</th>
-                                <th className="column-description">Опис</th>
-                                <th className="column-producer">Виробник</th>
-                                <th className="column-price">Ціна</th>
-                                <th className="column-quantity">Кількість</th>
-                                <th className="column-group">Група</th>
-                                <th className="column-actions">Дії</th>
+                                <th>Назва</th>
+                                <th>Опис</th>
+                                <th>Виробник</th>
+                                <th>Ціна</th>
+                                <th>Кількість</th>
+                                <th>Група</th>
+                                <th>Дії</th>
                             </tr>
                             </thead>
                             <tbody>
