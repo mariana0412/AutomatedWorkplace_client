@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate} from "react-router-dom";
 import AppNavbar from '../../components/AppNavbar';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 
 const Groups = () => {
     const [groups, setGroups] = useState([]);
     const navigate = useNavigate();
+    const [deleteGroupModal, setDeleteGroupModal] = useState(false);
+    const [groupToBeDeleted, setGroupToBeDeleted] = useState(null);
 
     useEffect(() => {
         fetchGroups();
@@ -46,7 +49,21 @@ const Groups = () => {
         }
     };
 
-    const handleDelete = async (groupId) => {
+
+    const handleAdd = () => {
+        navigate('/groups/add'); // Перехід на сторінку додавання групи
+    };
+
+    const toggleModal = () => setDeleteGroupModal(!deleteGroupModal);
+
+    const handleDelete = async (group) => {
+        setGroupToBeDeleted(group);
+        toggleModal();
+    };
+
+    const confirmDelete = async () => {
+        const groupId = groupToBeDeleted.id;
+
         try {
             const response = await fetch(`/api/group/${groupId}`, {
                 method: 'DELETE',
@@ -64,10 +81,8 @@ const Groups = () => {
         } catch (error) {
             console.error(error);
         }
-    };
 
-    const handleAdd = () => {
-        navigate('/groups/add'); // Перехід на сторінку додавання групи
+        toggleModal();
     };
 
     return (
@@ -92,12 +107,22 @@ const Groups = () => {
                             <td>{group.description}</td>
                             <td className="text-center">
                                 <button className="btn btn-primary me-1" onClick={() => handleEdit(group.id)}>Редагувати</button>
-                                <button className="btn btn-danger ms-1" onClick={() => handleDelete(group.id)}>Видалити</button>
+                                <button className="btn btn-danger ms-1" onClick={() => handleDelete(group)}>Видалити</button>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                <Modal isOpen={deleteGroupModal} toggle={toggleModal}>
+                    <ModalHeader toggle={toggleModal}>Підтвердіть видалення</ModalHeader>
+                    <ModalBody>
+                        Ви точно хочете видалити?
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={confirmDelete}>Так</Button>
+                        <Button color="secondary" onClick={toggleModal}>Ні</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
         </div>
     );
