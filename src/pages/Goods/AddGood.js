@@ -110,8 +110,14 @@ return (
                         name="price"
                         id="price"
                         required
+                        min="0"
                         value={good.price || ''}
-                        onChange={handleChange}
+                        onChange={e => {
+                            const value = Number(e.target.value);
+                            if (value >= 0) {
+                                handleChange(e);
+                            }
+                        }}
                     />
                 </FormGroup>
 
