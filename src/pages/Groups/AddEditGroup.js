@@ -48,39 +48,28 @@ const AddEditGroup = () => {
         event.preventDefault();
 
         try {
-            let response;
-            if (id) {
-                response = await fetch(`/api/group/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
-                    },
-                    body: JSON.stringify({
-                        name,
-                        description
-                    })
-                });
+            const url = `/api/groups${id ? `/${id}` : ''}`;
+
+            const response = await fetch(url, {
+                method: id ? 'PUT' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
+                },
+                body: JSON.stringify({
+                    name,
+                    description
+                })
+            });
+            if (response.status === 409) {
+                const errorMessage = await response.text();
+                console.error(errorMessage);
+                alert("Група з такою назвою вже існує!");
             }
             else {
-                response = await fetch('/api/group', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
-                    },
-                    body: JSON.stringify({
-                        name,
-                        description
-                    })
-                });
-            }
-            if (response.ok) {
                 navigate('/groups');
                 setName('');
                 setDescription('');
-            } else {
-                console.error('Error adding/editing group');
             }
         } catch (error) {
             console.error(error);
@@ -116,7 +105,7 @@ const AddEditGroup = () => {
                                     required
                                 ></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary me-1">
+                            <button type="submit" className="btn btn-primary d-flex justify-content-center">
                                 OK
                             </button>
                         </form>
