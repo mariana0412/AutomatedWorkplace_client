@@ -4,11 +4,11 @@ const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
     const [deleteGoodModal, setDeleteGoodModal] = useState(false);
     const [goodToBeDeleted, setGoodToBeDeleted] = useState(null);
 
-    const toggleModal = () => setDeleteGoodModal(!deleteGoodModal);
+    const toggleDeleteGoodModal = () => setDeleteGoodModal(!deleteGoodModal);
 
     const handleDelete = (good) => {
         setGoodToBeDeleted(good);
-        toggleModal();
+        toggleDeleteGoodModal();
     };
 
     const confirmDelete = async () => {
@@ -33,10 +33,10 @@ const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
             console.log(error);
         }
 
-        toggleModal();
+        toggleDeleteGoodModal();
     };
 
-    return { deleteGoodModal, goodToBeDeleted, toggleModal, handleDelete, confirmDelete };
+    return { deleteGoodModal, goodToBeDeleted, toggleModal: toggleDeleteGoodModal, handleDelete, confirmDelete };
 };
 
 export default useDeleteConfirmation;
