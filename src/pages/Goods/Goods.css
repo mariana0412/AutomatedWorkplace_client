@@ -30,11 +30,11 @@
 
 /* Custom colors for buttons */
 .edit-button {
-    background-color: violet !important;
+    background-color: #6b6bfa !important;
 }
 
 .delete-button {
-    background-color: red !important;
+    background-color: #e86173 !important;
 }
 
 /* Add space between buttons */
