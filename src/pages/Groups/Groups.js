@@ -33,7 +33,7 @@ const Groups = () => {
                         <option value="asc">від А до Я</option>
                         <option value="desc">від Я до А</option>
                     </select>
-                    <button className="btn btn-primary" onClick={handleAdd} style={{ whiteSpace: 'nowrap' }}>
+                    <button className="btn btn-success" onClick={handleAdd} style={{ whiteSpace: 'nowrap' }}>
                         Додати групу
                     </button>
                 </div>
@@ -53,8 +53,16 @@ const Groups = () => {
                             <td>{group.name}</td>
                             <td>{group.description}</td>
                             <td className="text-center">
-                                <button className="btn btn-primary me-1" onClick={() => handleEdit(group.id)}>Редагувати</button>
-                                <button className="btn btn-danger ms-1" onClick={() => handleDelete(group)}>Видалити</button>
+                                <button className="btn me-1"
+                                        onClick={() => handleEdit(group.id)}
+                                        style={{ backgroundColor: "#6b6bfa", color: "white"}}>
+                                    Редагувати
+                                </button>
+                                <button className="btn ms-1"
+                                        onClick={() => handleDelete(group)}
+                                        style={{ backgroundColor: "#e86173", color: "white"}}>
+                                    Видалити
+                                </button>
                             </td>
                         </tr>
                     ))}
