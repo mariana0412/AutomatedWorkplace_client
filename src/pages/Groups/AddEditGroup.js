@@ -1,48 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
+import {useGroupForm} from "../../hooks/useGroupForm";
 
 const AddEditGroup = () => {
-    const { id } = useParams();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const { id, name, description, handleNameChange, handleDescriptionChange, fetchGroup } = useGroupForm();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (id) {
-            fetchGroup();
-        }
-    }, [id]);
-
-    const fetchGroup = async () => {
-        try {
-            const response = await fetch(`/api/group/${id}`, {
-                method: 'GET',
-                headers: {
-                    Authorization:
-                        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U',
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setName(data.name);
-                setDescription(data.description);
-            } else {
-                console.error('Error fetching group');
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    };
-
-    const handleDescriptionChange = (event) => {
-        setDescription(event.target.value);
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -68,8 +31,6 @@ const AddEditGroup = () => {
             }
             else {
                 navigate('/groups');
-                setName('');
-                setDescription('');
             }
         } catch (error) {
             console.error(error);
