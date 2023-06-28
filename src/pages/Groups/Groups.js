@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {useGroups} from "../../hooks/useGroups";
-import useGroupModal from "../../hooks/useGroupModal";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { useGroups } from '../../hooks/useGroups';
+import useGroupModal from '../../hooks/useGroupModal';
 
 const Groups = () => {
-    const groups = useGroups();
     const navigate = useNavigate();
     const { deleteGroupModal, toggleModal, handleDelete, confirmDelete } = useGroupModal();
+    const [order, setOrder] = useState('');
+    const groups = useGroups(order);
 
     const handleEdit = async (groupId) => {
         navigate(`/groups/add/${groupId}`); // Перехід на сторінку додавання/редагування групи з передачею ID
@@ -18,11 +19,24 @@ const Groups = () => {
         navigate('/groups/add'); // Перехід на сторінку додавання групи
     };
 
+    const handleOrderChange = (event) => {
+        setOrder(event.target.value);
+    };
+
     return (
         <div>
             <AppNavbar />
-            <div className="text-end mt-3 me-3">
-                <button className="btn btn-primary" onClick={handleAdd}>Додати групу</button>
+            <div className="d-flex justify-content-between mt-3 mx-5 mb-3">
+                <div className="d-flex align-items-center">
+                    <select className="form-select me-2" value={order} onChange={handleOrderChange}>
+                        <option value="">Сортування</option>
+                        <option value="asc">від А до Я</option>
+                        <option value="desc">від Я до А</option>
+                    </select>
+                    <button className="btn btn-primary" onClick={handleAdd} style={{ whiteSpace: 'nowrap' }}>
+                        Додати групу
+                    </button>
+                </div>
             </div>
             <div className="table-responsive container">
                 <table className="table table-bordered table-width">
@@ -60,6 +74,5 @@ const Groups = () => {
         </div>
     );
 };
-
 
 export default Groups;
