@@ -41,3 +41,13 @@
 .buttonWithMargins {
     margin: 10px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+.multiline-button {
+    white-space: normal;
+}
