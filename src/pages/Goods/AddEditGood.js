@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import AppNavbar from "../../components/AppNavbar";
 import {Button, Container, Form, FormGroup, Input, Label} from "reactstrap";
+import AlertModal from "../../components/AlertModal";
 
 const AddEditGood = () => {
     const initialFormState = {
@@ -19,6 +20,8 @@ const AddEditGood = () => {
     const [good, setGood] = useState(initialFormState);
     const navigate = useNavigate();
     const { id } = useParams();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
 
     useEffect(() => {
         if (id) {
@@ -60,10 +63,14 @@ const AddEditGood = () => {
 
         if (response.status === 409) {
             const errorMessage = await response.text();
-            if(errorMessage === "Good with this name already exists!")
-                alert("Товар з такою назвою вже існує!");
-            else if(errorMessage === "Price can't be negative!")
-                alert("Ціна товару не може бути від'ємною!");
+            if(errorMessage === "Good with this name already exists!") {
+                setModalMessage("Товар з такою назвою вже існує!");
+                setModalOpen(true);
+            }
+            else if(errorMessage === "Price can't be negative!") {
+                setModalMessage("Ціна товару не може бути від'ємною!");
+                setModalOpen(true);
+            }
         }
         else if (response.status === 403)
             localStorage.removeItem('token');
@@ -73,9 +80,18 @@ const AddEditGood = () => {
         }
     };
 
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    };
+
 return (
     <div>
         <AppNavbar/>
+        <AlertModal
+            message={modalMessage}
+            isOpen={modalOpen}
+            toggle={toggleModal}
+        />
         <Container>
             <div className="container d-flex justify-content-center align-items-center">
                 <div className="card w-50 mt-5">

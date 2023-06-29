@@ -1,10 +1,14 @@
 import {useNavigate} from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
 import {useGroupForm} from "../../hooks/useGroupForm";
+import {useState} from "react";
+import AlertModal from "../../components/AlertModal";
 
 const AddEditGroup = () => {
     const { id, name, description, handleNameChange, handleDescriptionChange } = useGroupForm();
     const navigate = useNavigate();
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,9 +28,8 @@ const AddEditGroup = () => {
                 })
             });
             if (response.status === 409) {
-                const errorMessage = await response.text();
-                console.error(errorMessage);
-                alert("Група з такою назвою вже існує!");
+                setModalMessage("Група з такою назвою вже існує!");
+                setModalOpen(true);
             }
             else if (response.status === 403)
                 localStorage.removeItem('token');
@@ -38,9 +41,18 @@ const AddEditGroup = () => {
         }
     };
 
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    };
+
     return (
         <div>
             <AppNavbar />
+            <AlertModal
+                message={modalMessage}
+                isOpen={modalOpen}
+                toggle={toggleModal}
+            />
             <div className="container d-flex justify-content-center align-items-center">
                 <div className="card w-50 mt-5">
                     <div className="card-body">
@@ -67,9 +79,8 @@ const AddEditGroup = () => {
                                     required
                                 ></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary d-flex justify-content-center">
-                                OK
-                            </button>
+                            <button type="submit" className="btn btn-primary justify-content-center">Зберегти</button>
+                            <button className="btn btn-secondary justify-content-center" onClick={() => navigate('/groups')}>Скасувати</button>
                         </form>
                     </div>
                 </div>
