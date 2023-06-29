@@ -70,10 +70,10 @@ const GoodRow = ({ good, groups, handleDelete }) => {
             <td>{groupName}</td>
             <td>
                 <ButtonGroup>
-                    <Button className="btn me-1 buttonWithMargins edit-button" size="sm" tag={Link} to={"/goods/" + good.id}>
+                    <Button className="btn ms-3 buttonWithMargins edit-button" size="sm" tag={Link} to={"/goods/" + good.id}>
                         Редагувати
                     </Button>
-                    <Button className="btn ms-1 buttonWithMargins delete-button" onClick={() => handleDelete(good)}>
+                    <Button className="btn me-3 buttonWithMargins delete-button" onClick={() => handleDelete(good)}>
                         Видалити
                     </Button>
                 </ButtonGroup>

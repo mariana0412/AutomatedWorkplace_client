@@ -170,7 +170,7 @@ return (
                             </FormGroup>
 
                             <FormGroup style={{'margin-top': '40px'}}>
-                                <Button color="primary" type="submit">Зберегти</Button>{' '}
+                                <Button color="primary" type="submit" style={{'margin-right':'10px'}}>Зберегти</Button>
                                 <Button color="secondary" tag={Link} to={"/goods"}>Скасувати</Button>
                             </FormGroup>
                         </Form>

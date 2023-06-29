@@ -79,7 +79,7 @@ const AddEditGroup = () => {
                                     required
                                 ></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary justify-content-center">Зберегти</button>
+                            <button type="submit" className="btn btn-primary justify-content-center" style={{'margin-right':'10px'}}>Зберегти</button>
                             <button className="btn btn-secondary justify-content-center" onClick={() => navigate('/groups')}>Скасувати</button>
                         </form>
                     </div>
