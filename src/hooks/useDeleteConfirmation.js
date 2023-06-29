@@ -19,7 +19,7 @@ const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`,
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
                 }
             });
 
@@ -27,6 +27,8 @@ const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
 
             if (response.ok)
                 updateGoodsAfterDeletion(deletedGoodId);
+            else if (response.status === 403)
+                localStorage.removeItem('token');
             else
                 alert(data.message);
         } catch (error) {

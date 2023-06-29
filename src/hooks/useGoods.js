@@ -9,24 +9,30 @@ const useGoods = () => {
         const fetchGoods = async () => {
             const response = await fetch(`api/good`, {
                 headers: {
-                    // TODO: change to user's token when auth is implemented
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`,
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
             });
-            const data = await response.json();
-            setGoods(data);
-            setShowEmpty(data.length === 0);
+            if (response.status === 403)
+                localStorage.removeItem('token');
+            else {
+                const data = await response.json();
+                setGoods(data);
+                setShowEmpty(data.length === 0);
+            }
         };
 
         const fetchGroups = async () => {
             const response = await fetch(`/api/group`, {
                 headers: {
-                    // TODO: change to user's token when auth is implemented
-                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiaWF0IjoxNjg3ODkwNzIwfQ._0WNSNU5noAuU2EbROJGJpPwqcFUJuheaa-eaMUrdWg`,
-                },
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                 },
             });
-            const data = await response.json();
-            setGroups(data);
+            if (response.status === 403)
+                localStorage.removeItem('token');
+            else {
+                const data = await response.json();
+                setGroups(data);
+            }
         };
 
         fetchGoods();

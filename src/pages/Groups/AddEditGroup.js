@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
 import {useGroupForm} from "../../hooks/useGroupForm";
 
 const AddEditGroup = () => {
-    const { id, name, description, handleNameChange, handleDescriptionChange, fetchGroup } = useGroupForm();
+    const { id, name, description, handleNameChange, handleDescriptionChange } = useGroupForm();
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -17,7 +16,7 @@ const AddEditGroup = () => {
                 method: id ? 'PUT' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaWxseWRheXN0YXJAZ21haWwuY29tIiwiZXhwIjoxNjg4MDQwOTU3LCJpYXQiOjE2ODc5NTQ1NTd9.l8z_K5GEkRqVwJFNPCU_1Q5QFve6dIbGxM7uRTP0y-U'
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
                 body: JSON.stringify({
                     name,
@@ -29,6 +28,8 @@ const AddEditGroup = () => {
                 console.error(errorMessage);
                 alert("Група з такою назвою вже існує!");
             }
+            else if (response.status === 403)
+                localStorage.removeItem('token');
             else {
                 navigate('/groups');
             }
