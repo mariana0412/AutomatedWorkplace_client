@@ -6,6 +6,7 @@ import useDeleteConfirmation from "../../hooks/useDeleteConfirmation";
 import GoodRow from "./GoodRow";
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import useTotalCost from "../../hooks/useTotalCost";
 
 const Goods = () => {
 
@@ -13,6 +14,8 @@ const Goods = () => {
     const { deleteGoodModal, toggleModal, handleDelete, confirmDelete } = useDeleteConfirmation(updateGoodsAfterDeletion);
     const [selectedGroup, setSelectedGroup] = useState("");
     const [selectedName, setSelectedName] = useState("");
+    const {totalCost, fetchTotalCost } = useTotalCost();
+    const [showTotalCost, setShowTotalCost] = useState(false);
 
     const handleFilterChange = async (newGroupId, newName) => {
         await fetchGoodsByGroup(newGroupId, newName);
@@ -36,19 +39,42 @@ const Goods = () => {
             good={good}
             groups={groups}
             handleDelete={handleDelete}
+            selectedGroup={selectedGroup}
+            selectedName={selectedName}
+            fetchTotalCost={fetchTotalCost}
         />
     );
+
+    const handleTotalCost = () => {
+        fetchTotalCost(selectedGroup, selectedName);
+        setShowTotalCost(true);
+    }
 
     return (
         <div>
             <AppNavbar/>
             <Container fluid>
-                <Button className="buttonWithMargins" color="success" tag={Link} to="/goods/new">
-                    Додати
-                </Button>
+                <div className="button-container">
+                    <Button className="buttonWithMargins" color="success" tag={Link} to="/goods/new">
+                        Додати
+                    </Button>
+                    <Button className="multiline-button" onClick={handleTotalCost}>
+                        Обрахувати<br />загальну вартість
+                    </Button>
+                </div>
+
                 <div className="row">
 
                     <div className="filters">
+                        <FormGroup>
+                            <Input
+                                type="text"
+                                placeholder="Назва товару..."
+                                value={selectedName}
+                                onChange={handleNameChange}
+                            />
+                        </FormGroup>
+
                         <FormGroup>
                             <Input type="select" value={selectedGroup} onChange={handleGroupChange}>
                                 <option value="">Усі групи</option>
@@ -58,15 +84,6 @@ const Goods = () => {
                                     </option>
                                 ))}
                             </Input>
-                        </FormGroup>
-
-                        <FormGroup>
-                            <Input
-                                type="text"
-                                placeholder="Назва"
-                                value={selectedName}
-                                onChange={handleNameChange}
-                            />
                         </FormGroup>
                     </div>
 
@@ -89,6 +106,21 @@ const Goods = () => {
                         </Table>
                     </div>
                 </div>
+
+                <Modal isOpen={showTotalCost} toggle={() => setShowTotalCost(false)}>
+                    <ModalHeader toggle={() => setShowTotalCost(false)}>
+                        Загальна вартість
+                    </ModalHeader>
+                    <ModalBody>
+                        {totalCost} грн
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={() => setShowTotalCost(false)}>
+                            Закрити
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+
                 <Modal isOpen={deleteGoodModal} toggle={toggleModal}>
                     <ModalHeader toggle={toggleModal}>Підтвердіть видалення</ModalHeader>
                     <ModalBody>
