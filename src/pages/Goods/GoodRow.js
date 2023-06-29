@@ -59,10 +59,10 @@ const GoodRow = ({ good, groups, handleDelete }) => {
             <td>
                 {good.quantity}
                 <ButtonGroup>
-                    <Button className="buttonWithMargins edit-button" size="sm" onClick={() => openModal('add')}>
+                    <Button className="btn me-1 buttonWithMargins edit-button" size="sm" onClick={() => openModal('add')}>
                         +
                     </Button>
-                    <Button className="buttonWithMargins edit-button" size="sm" onClick={() => openModal('reduce')}>
+                    <Button className="btn me-1 buttonWithMargins edit-button" size="sm" onClick={() => openModal('reduce')}>
                         -
                     </Button>
                 </ButtonGroup>
@@ -70,10 +70,10 @@ const GoodRow = ({ good, groups, handleDelete }) => {
             <td>{groupName}</td>
             <td>
                 <ButtonGroup>
-                    <Button className="buttonWithMargins edit-button" size="sm" tag={Link} to={"/goods/" + good.id}>
+                    <Button className="btn me-1 buttonWithMargins edit-button" size="sm" tag={Link} to={"/goods/" + good.id}>
                         Редагувати
                     </Button>
-                    <Button className="buttonWithMargins delete-button" size="sm" onClick={() => handleDelete(good)}>
+                    <Button className="btn ms-1 buttonWithMargins delete-button" onClick={() => handleDelete(good)}>
                         Видалити
                     </Button>
                 </ButtonGroup>
