@@ -24,11 +24,11 @@ const AppNavbar = () => {
                 <Nav className="justify-content-start" style={{ width: '100%' }} navbar>
                     {checkToken() && (
                         <>
-                            <NavbarBrand tag={Link} to="/goods">
-                                Товари
-                            </NavbarBrand>
                             <NavbarBrand tag={Link} to="/groups">
                                 Групи
+                            </NavbarBrand>
+                            <NavbarBrand tag={Link} to="/goods">
+                                Товари
                             </NavbarBrand>
                         </>
                     )}
