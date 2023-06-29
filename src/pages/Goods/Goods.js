@@ -1,17 +1,17 @@
 import AppNavbar from "../../components/AppNavbar";
 import {Button, Container, Table, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input} from 'reactstrap';
 import './Goods.css';
-import useGoods from "../../hooks/useGoods";
-import useDeleteConfirmation from "../../hooks/useDeleteConfirmation";
+import useGoods from "../../hooks/good/useGoods";
+import useDeleteGoodConfirmation from "../../hooks/good/useDeleteGoodConfirmation";
 import GoodRow from "./GoodRow";
 import {Link} from "react-router-dom";
 import {useState} from "react";
-import useTotalCost from "../../hooks/useTotalCost";
+import useTotalCost from "../../hooks/good/useTotalCost";
 
 const Goods = () => {
 
     const { goods, groups, showEmpty, updateGoodsAfterDeletion, fetchGoodsByGroup } = useGoods();
-    const { deleteGoodModal, toggleModal, handleDelete, confirmDelete } = useDeleteConfirmation(updateGoodsAfterDeletion);
+    const { deleteGoodModal, toggleModal, handleDelete, confirmDelete } = useDeleteGoodConfirmation(updateGoodsAfterDeletion);
     const [selectedGroup, setSelectedGroup] = useState("");
     const [selectedName, setSelectedName] = useState("");
     const {totalCost, fetchTotalCost } = useTotalCost();
@@ -88,7 +88,7 @@ const Goods = () => {
                     </div>
 
                     <div className="goods-table">
-                        <Table className="mt-4">
+                        <Table className="mt-4 table table-bordered table-width">
                             <thead>
                             <tr>
                                 <th>Назва</th>

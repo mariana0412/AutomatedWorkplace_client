@@ -1,4 +1,4 @@
-import AppNavbar from '../components/AppNavbar';
+import AppNavbar from '../../components/AppNavbar';
 import './Home.css';
 const Home = () => {
 

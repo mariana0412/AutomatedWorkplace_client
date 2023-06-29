@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
+const useDeleteGoodConfirmation = (updateGoodsAfterDeletion) => {
     const [deleteGoodModal, setDeleteGoodModal] = useState(false);
     const [goodToBeDeleted, setGoodToBeDeleted] = useState(null);
 
@@ -41,4 +41,4 @@ const useDeleteConfirmation = (updateGoodsAfterDeletion) => {
     return { deleteGoodModal, goodToBeDeleted, toggleModal: toggleDeleteGoodModal, handleDelete, confirmDelete };
 };
 
-export default useDeleteConfirmation;
+export default useDeleteGoodConfirmation;

@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const AppNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const checkToken = () => {
+    useEffect(() => {
+        setIsLoggedIn(checkToken());
+    }, []);
+
+    function checkToken() {
         const token = localStorage.getItem('token');
         return !!token;
-    };
+    }
 
-    const handleLogout = () => {
+    function handleLogout() {
         localStorage.removeItem('token');
-    };
+        setIsLoggedIn(false);
+    }
 
     return (
         <Navbar color="dark" dark expand="md">
@@ -22,20 +28,20 @@ const AppNavbar = () => {
             <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="justify-content-start" style={{ width: '100%' }} navbar>
-                    {checkToken() && (
+                    {isLoggedIn && (
                         <>
-                            <NavbarBrand tag={Link} to="/goods">
-                                Товари
-                            </NavbarBrand>
                             <NavbarBrand tag={Link} to="/groups">
                                 Групи
+                            </NavbarBrand>
+                            <NavbarBrand tag={Link} to="/goods">
+                                Товари
                             </NavbarBrand>
                         </>
                     )}
                 </Nav>
 
                 <Nav className="justify-content-end" style={{ width: '100%' }} navbar>
-                    {checkToken() ? (
+                    {isLoggedIn ? (
                         <NavbarBrand onClick={handleLogout} tag={Link} to="/">
                             Вийти
                         </NavbarBrand>
@@ -45,7 +51,6 @@ const AppNavbar = () => {
                         </NavbarBrand>
                     )}
                 </Nav>
-
             </Collapse>
         </Navbar>
     );
