@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Goods from "./pages/Goods/Goods";
 import Groups from "./pages/Groups/Groups";
 import Login from "./pages/Login";
-import AddGood from "./pages/Goods/AddGood";
+import AddEditGood from "./pages/Goods/AddEditGood";
 import AddEditGroup from "./pages/Groups/AddEditGroup";
 
 const App = () => {
@@ -17,8 +17,8 @@ const App = () => {
               <Route path="/groups/add/:id" element={<AddEditGroup/>} />
               <Route path="/goods" element={<Goods/>} />
               <Route path="/login" element={<Login/>} />
-              <Route path="/goods/new" element={<AddGood/>} />
-              <Route path='/goods/:id' element={<AddGood/>}/>
+              <Route path="/goods/new" element={<AddEditGood/>} />
+              <Route path='/goods/:id' element={<AddEditGood/>}/>
           </Routes>
       </Router>
   )
