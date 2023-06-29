@@ -88,7 +88,7 @@ const Goods = () => {
                     </div>
 
                     <div className="goods-table">
-                        <Table className="mt-4">
+                        <Table className="mt-4 table table-bordered table-width">
                             <thead>
                             <tr>
                                 <th>Назва</th>
