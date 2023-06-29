@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
-import {useGroupForm} from "../../hooks/useGroupForm";
+import {useGroupForm} from "../../hooks/group/useGroupForm";
 import {useState} from "react";
 import AlertModal from "../../components/AlertModal";
 

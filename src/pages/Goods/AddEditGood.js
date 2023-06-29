@@ -1,4 +1,4 @@
-import useGoods from "../../hooks/useGoods";
+import useGoods from "../../hooks/good/useGoods";
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import AppNavbar from "../../components/AppNavbar";

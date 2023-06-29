@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppNavbar from '../../components/AppNavbar';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { useGroups } from '../../hooks/useGroups';
-import useGroupModal from '../../hooks/useGroupModal';
+import { useGroups } from '../../hooks/group/useGroups';
+import useGroupModal from '../../hooks/group/useGroupModal';
 
 const Groups = () => {
     const navigate = useNavigate();
@@ -12,11 +12,11 @@ const Groups = () => {
     const groups = useGroups(order);
 
     const handleEdit = async (groupId) => {
-        navigate(`/groups/add/${groupId}`); // Перехід на сторінку додавання/редагування групи з передачею ID
+        navigate(`/groups/${groupId}`); // Перехід на сторінку редагування групи з передачею ID
     };
 
     const handleAdd = () => {
-        navigate('/groups/add'); // Перехід на сторінку додавання групи
+        navigate('/groups/new'); // Перехід на сторінку додавання групи
     };
 
     const handleOrderChange = (event) => {
