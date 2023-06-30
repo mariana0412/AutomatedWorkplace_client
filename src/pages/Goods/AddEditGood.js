@@ -144,10 +144,11 @@ return (
                                     id="price"
                                     required
                                     min="0"
+                                    step="0.01" // Allow decimals to two decimal places
                                     value={good.price || ''}
                                     onChange={e => {
-                                        const value = Number(e.target.value);
-                                        if (value >= 0) {
+                                        const value = e.target.value;
+                                        if (value === '' || (!isNaN(value) && Number(value) >= 0)) {
                                             handleChange(e);
                                         }
                                     }}
