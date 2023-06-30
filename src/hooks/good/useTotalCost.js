@@ -24,7 +24,8 @@ const useTotalCost = () => {
         });
 
         const totalCostData = await totalCostResponse.text();
-        setTotalCost(totalCostData);
+        const roundedTotalCost = parseFloat(parseFloat(totalCostData).toFixed(2));
+        setTotalCost(roundedTotalCost);
     }
 
     return { totalCost, fetchTotalCost };
